@@ -94,11 +94,35 @@ public interface Allegiance {
     };
 
     public default void moveBishop(Square currentSquare, Square squareToMoveTo, Square[][] squares) {
+        boolean movementPathIsDiagonal = false;
+
+        if (squareToMoveTo.getX() < currentSquare.getX()) { // 3 vs 2
+            if(squareToMoveTo.getY() < currentSquare.getY()) { // 1 vs 0
+                if (squareToMoveTo.getX() - currentSquare.getX() == squareToMoveTo.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            } else if (squareToMoveTo.getY() > currentSquare.getY()) { // 0 vs 1
+                if (squareToMoveTo.getX() - currentSquare.getX() == currentSquare.getY() - squareToMoveTo.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            }
+        } else if (squareToMoveTo.getX() > currentSquare.getX()) { // 1 vs 2
+            if(squareToMoveTo.getY() < currentSquare.getY()) { // 1 vs 0
+                if (currentSquare.getX() - squareToMoveTo.getX() == squareToMoveTo.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            } else if (squareToMoveTo.getY() > currentSquare.getY()) { // 0 vs 1
+                if (squareToMoveTo.getX() - currentSquare.getX() == squareToMoveTo.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            }
+        }
+
         if (
             (
                 squareToMoveTo.getX() - currentSquare.getX() != 0 &&
                 squareToMoveTo.getY() - currentSquare.getY() != 0 &&
-                squareToMoveTo.getX() - currentSquare.getX() == squareToMoveTo.getY() - currentSquare.getY()
+                movementPathIsDiagonal
             ) &&
             squareToMoveTo.getPiece() == null
         ) {
@@ -167,11 +191,35 @@ public interface Allegiance {
     };
 
     public default void attackWithBishop(Square currentSquare, Square squareToAttack, Square[][] squares) {
+        boolean movementPathIsDiagonal = false;
+
+        if (squareToAttack.getX() < currentSquare.getX()) { // 3 vs 2
+            if(squareToAttack.getY() < currentSquare.getY()) { // 1 vs 0
+                if (squareToAttack.getX() - currentSquare.getX() == squareToAttack.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            } else if (squareToAttack.getY() > currentSquare.getY()) { // 0 vs 1
+                if (squareToAttack.getX() - currentSquare.getX() == currentSquare.getY() - squareToAttack.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            }
+        } else if (squareToAttack.getX() > currentSquare.getX()) { // 1 vs 2
+            if(squareToAttack.getY() < currentSquare.getY()) { // 1 vs 0
+                if (currentSquare.getX() - squareToAttack.getX() == squareToAttack.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            } else if (squareToAttack.getY() > currentSquare.getY()) { // 0 vs 1
+                if (squareToAttack.getX() - currentSquare.getX() == squareToAttack.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            }
+        }
+
         if (
                 (
                     squareToAttack.getX() - currentSquare.getX() != 0 &&
                     squareToAttack.getY() - currentSquare.getY() != 0 &&
-                    squareToAttack.getX() - currentSquare.getX() == squareToAttack.getY() - currentSquare.getY()
+                    movementPathIsDiagonal
                 ) &&
                 squareToAttack.getPiece() != null &&
                 squareToAttack.getPiece().getAllegiance() != currentSquare.getPiece().getAllegiance()
