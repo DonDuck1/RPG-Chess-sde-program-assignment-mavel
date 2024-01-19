@@ -150,13 +150,15 @@ public class Main {
                                     piece.attack(currentSquare, squareToAttack, board.getSquares());
 
                                     if (pieceToAttack.getHealth() < startingHealthOfAttackedPawn) {
-                                        board.printBoard();
-
                                         if (pieceToAttack.getHealth() < 0) {
                                             squareToAttack.setPiece(currentSquare.getPiece());
                                             currentSquare.setPiece(null);
+
+                                            board.printBoard();
+
                                             writer.writeLine("You killed an enemy");
                                         } else {
+                                            board.printBoard();
                                             writer.writeLine("You attacked an enemy");
                                         }
                                         hasAttacked = true;
@@ -173,7 +175,7 @@ public class Main {
                             writer.writeLine("No piece detected on selected square");
                         }
                     } else {
-                        writer.writeLine("You may only move once per turn");
+                        writer.writeLine("You may only attack once per turn");
                     }
                 }
             } else {
@@ -246,7 +248,7 @@ public class Main {
                             writer.writeLine("No piece detected on selected square");
                         }
                     } else {
-                        writer.writeLine("You may only move once per turn");
+                        writer.writeLine("You may only attack or do a special action once per turn");
                     }
                 }
             } else {
