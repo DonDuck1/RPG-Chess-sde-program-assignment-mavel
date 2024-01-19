@@ -69,7 +69,7 @@ The program should run in a java console. We decided on making a chess program, 
     
     The game is won when the king piece of your opponent dies.
 
-The RPG mechanics out themselves in 3 stats: health, armor and damage. The stats for all the pieces are as follows:
+The RPG mechanics out themselves in 3 stats: health, armor and damage. The armor stat is implemented in the pieces, but due to time constraints we were unable to actually do anything with it (simply substracting the damage with the armour when running the function that lets a pawn take damage would unbalance the game heavily). The stats for all the pieces are as follows:
 
     Pawn:
         - Health: 1

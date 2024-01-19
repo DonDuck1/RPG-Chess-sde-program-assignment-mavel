@@ -89,31 +89,40 @@ public class Main {
                 }
                 if (!errorDetected) {
                     if (!hasMoved) {
-                        Square currentSquare = board.getSquare(currentSquareXCoordinate, currentSquareYCoordinate);
-                        Square squareToMoveTo = board.getSquare(squareToMoveToXCoordinate, squareToMoveToYCoordinate);
+                        if (
+                            (currentSquareXCoordinate >= 0 && currentSquareXCoordinate <= 7) &&
+                            (currentSquareYCoordinate >= 0 && currentSquareYCoordinate <= 7) &&
+                            (squareToMoveToXCoordinate >= 0 && squareToMoveToXCoordinate <= 7) &&
+                            (squareToMoveToYCoordinate >= 0 && squareToMoveToYCoordinate <= 7)
+                        ) {
+                            Square currentSquare = board.getSquare(currentSquareXCoordinate, currentSquareYCoordinate);
+                            Square squareToMoveTo = board.getSquare(squareToMoveToXCoordinate, squareToMoveToYCoordinate);
 
-                        Piece piece = currentSquare.getPiece();
+                            Piece piece = currentSquare.getPiece();
 
-                        if (piece != null) {
-                            if (
-                                (piece.getAllegiance().getClass().getSimpleName().equals("White") &&
-                                    whitePlayerTurn) ||
-                                (piece.getAllegiance().getClass().getSimpleName().equals("Black") &&
-                                    !whitePlayerTurn)
-                            ) {
-                                piece.move(currentSquare, squareToMoveTo, board.getSquares());
+                            if (piece != null) {
+                                if (
+                                    (piece.getAllegiance().getClass().getSimpleName().equals("White") &&
+                                        whitePlayerTurn) ||
+                                    (piece.getAllegiance().getClass().getSimpleName().equals("Black") &&
+                                        !whitePlayerTurn)
+                                ) {
+                                    piece.move(currentSquare, squareToMoveTo, board.getSquares());
 
-                                if (squareToMoveTo.getPiece() == piece) {
-                                    board.printBoard();
-                                    hasMoved = true;
+                                    if (squareToMoveTo.getPiece() == piece) {
+                                        board.printBoard();
+                                        hasMoved = true;
+                                    } else {
+                                        writer.writeLine("Could not move piece");
+                                    }
                                 } else {
-                                    writer.writeLine("Could not move piece");
+                                    writer.writeLine("Can not move piece of other player");
                                 }
                             } else {
-                                writer.writeLine("Can not move piece of other player");
+                                writer.writeLine("No piece detected on selected square");
                             }
                         } else {
-                            writer.writeLine("No piece detected on selected square");
+                            writer.writeLine("One or both of the specified coordinates is not on the board");
                         }
                     } else {
                         writer.writeLine("You may only move once per turn");
@@ -147,47 +156,56 @@ public class Main {
                 }
                 if (!errorDetected) {
                     if (!hasAttacked) {
-                        Square currentSquare = board.getSquare(currentSquareXCoordinate, currentSquareYCoordinate);
-                        Square squareToAttack = board.getSquare(squareToAttackXCoordinate, squareToAttackYCoordinate);
+                        if (
+                            (currentSquareXCoordinate >= 0 && currentSquareXCoordinate <= 7) &&
+                            (currentSquareYCoordinate >= 0 && currentSquareYCoordinate <= 7) &&
+                            (squareToAttackXCoordinate >= 0 && squareToAttackXCoordinate <= 7) &&
+                            (squareToAttackYCoordinate >= 0 && squareToAttackYCoordinate <= 7)
+                        ) {
+                            Square currentSquare = board.getSquare(currentSquareXCoordinate, currentSquareYCoordinate);
+                            Square squareToAttack = board.getSquare(squareToAttackXCoordinate, squareToAttackYCoordinate);
 
-                        Piece piece = currentSquare.getPiece();
-                        Piece pieceToAttack = squareToAttack.getPiece();
+                            Piece piece = currentSquare.getPiece();
+                            Piece pieceToAttack = squareToAttack.getPiece();
 
-                        if (piece != null) {
-                            if (pieceToAttack != null ) {
-                                if (
-                                    (piece.getAllegiance().getClass().getSimpleName().equals("White") &&
-                                        whitePlayerTurn) ||
-                                    (piece.getAllegiance().getClass().getSimpleName().equals("Black") &&
-                                        !whitePlayerTurn)
-                                ) {
-                                    double startingHealthOfAttackedPawn = pieceToAttack.getHealth();
-                                    piece.attack(currentSquare, squareToAttack, board.getSquares());
+                            if (piece != null) {
+                                if (pieceToAttack != null ) {
+                                    if (
+                                        (piece.getAllegiance().getClass().getSimpleName().equals("White") &&
+                                            whitePlayerTurn) ||
+                                        (piece.getAllegiance().getClass().getSimpleName().equals("Black") &&
+                                            !whitePlayerTurn)
+                                    ) {
+                                        double startingHealthOfAttackedPawn = pieceToAttack.getHealth();
+                                        piece.attack(currentSquare, squareToAttack, board.getSquares());
 
-                                    if (pieceToAttack.getHealth() < startingHealthOfAttackedPawn) {
-                                        if (pieceToAttack.getHealth() <= 0) {
-                                            squareToAttack.setPiece(currentSquare.getPiece());
-                                            currentSquare.setPiece(null);
+                                        if (pieceToAttack.getHealth() < startingHealthOfAttackedPawn) {
+                                            if (pieceToAttack.getHealth() <= 0) {
+                                                squareToAttack.setPiece(currentSquare.getPiece());
+                                                currentSquare.setPiece(null);
 
-                                            board.printBoard();
+                                                board.printBoard();
 
-                                            writer.writeLine("You killed an enemy");
+                                                writer.writeLine("You killed an enemy");
+                                            } else {
+                                                board.printBoard();
+                                                writer.writeLine("You attacked an enemy");
+                                            }
+                                            hasAttacked = true;
                                         } else {
-                                            board.printBoard();
-                                            writer.writeLine("You attacked an enemy");
+                                            writer.writeLine("Could not attack piece on selected square");
                                         }
-                                        hasAttacked = true;
                                     } else {
-                                        writer.writeLine("Could not attack piece on selected square");
+                                        writer.writeLine("Can not attack using piece of the other player");
                                     }
                                 } else {
-                                    writer.writeLine("Can not attack using piece of the other player");
+                                    writer.writeLine("No piece detected on the attacked square");
                                 }
                             } else {
-                                writer.writeLine("No piece detected on the attacked square");
+                                writer.writeLine("No piece detected on selected square");
                             }
                         } else {
-                            writer.writeLine("No piece detected on selected square");
+                            writer.writeLine("One or both of the specified coordinates is not on the board");
                         }
                     } else {
                         writer.writeLine("You may only attack once per turn");
@@ -221,47 +239,57 @@ public class Main {
                 }
                 if (!errorDetected) {
                     if (!hasAttacked) {
-                        Square currentSquare = board.getSquare(currentSquareXCoordinate, currentSquareYCoordinate);
-                        Square squareToAffect = board.getSquare(squareToAffectXCoordinate, squareToAffectYCoordinate);
+                        if (
+                            (currentSquareXCoordinate >= 0 && currentSquareXCoordinate <= 7) &&
+                            (currentSquareYCoordinate >= 0 && currentSquareYCoordinate <= 7) &&
+                            (squareToAffectXCoordinate >= 0 && squareToAffectXCoordinate <= 7) &&
+                            (squareToAffectYCoordinate >= 0 && squareToAffectYCoordinate <= 7)
+                        ) {
+                            Square currentSquare = board.getSquare(currentSquareXCoordinate, currentSquareYCoordinate);
+                            Square squareToAffect = board.getSquare(squareToAffectXCoordinate, squareToAffectYCoordinate);
 
-                        Piece piece = currentSquare.getPiece();
-                        Piece pieceToAffect = squareToAffect.getPiece();
+                            Piece piece = currentSquare.getPiece();
+                            Piece pieceToAffect = squareToAffect.getPiece();
 
-                        if (piece != null) {
-                            if (pieceToAffect != null ) {
-                                if (
-                                    (piece.getAllegiance().getClass().getSimpleName().equals("White") &&
-                                        whitePlayerTurn) ||
-                                    (piece.getAllegiance().getClass().getSimpleName().equals("Black") &&
-                                        !whitePlayerTurn)
-                                ) {
-                                    PieceState startingStateOfAffectedPawn = pieceToAffect.getState();
-                                    piece.specialAction(currentSquare, squareToAffect, board.getSquares());
-
+                            if (piece != null) {
+                                if (pieceToAffect != null ) {
                                     if (
-                                        pieceToAffect.getState() != startingStateOfAffectedPawn ||
-                                        (
-                                            pieceToAffect.getState() == startingStateOfAffectedPawn &&
-                                            pieceToAffect.getState().getDuration() != startingStateOfAffectedPawn.getDuration()
-                                        )
+                                        (piece.getAllegiance().getClass().getSimpleName().equals("White") &&
+                                            whitePlayerTurn) ||
+                                        (piece.getAllegiance().getClass().getSimpleName().equals("Black") &&
+                                            !whitePlayerTurn)
                                     ) {
-                                        board.printBoard();
+                                        PieceState startingStateOfAffectedPawn = pieceToAffect.getState();
+                                        piece.specialAction(currentSquare, squareToAffect, board.getSquares());
 
-                                        writer.writeLine("You successfully did a special action that affected a piece");
+                                        if (
+                                            pieceToAffect.getState() != startingStateOfAffectedPawn ||
+                                                (
+                                                    pieceToAffect.getState() == startingStateOfAffectedPawn &&
+                                                    pieceToAffect.getState().getDuration() != startingStateOfAffectedPawn.getDuration()
+                                                )
+                                        ) {
+                                            board.printBoard();
 
-                                        hasAttacked = true;
+                                            writer.writeLine("You successfully did a special action that affected a piece");
+
+                                            hasAttacked = true;
+                                        } else {
+                                            writer.writeLine("Could not affect piece on selected square");
+                                        }
                                     } else {
-                                        writer.writeLine("Could not affect piece on selected square");
+                                        writer.writeLine("Can not attack using piece of the other player");
                                     }
                                 } else {
-                                    writer.writeLine("Can not attack using piece of the other player");
+                                    writer.writeLine("No piece detected on the attacked square");
                                 }
                             } else {
-                                writer.writeLine("No piece detected on the attacked square");
+                                writer.writeLine("No piece detected on selected square");
                             }
                         } else {
-                            writer.writeLine("No piece detected on selected square");
+                            writer.writeLine("One or both of the specified coordinates is not on the board");
                         }
+
                     } else {
                         writer.writeLine("You may only attack or do a special action once per turn");
                     }
