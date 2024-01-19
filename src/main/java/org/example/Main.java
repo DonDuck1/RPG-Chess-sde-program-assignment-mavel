@@ -24,6 +24,7 @@ public class Main {
         HistoryCaretaker historyCareTaker = new HistoryCaretaker(board);
 
         boolean whitePlayerTurn = true;
+        boolean effectsAppliedThisTurn = false;
         boolean hasMoved = false;
         boolean hasAttacked = false;
 
@@ -35,6 +36,7 @@ public class Main {
             board,
             historyCareTaker,
             whitePlayerTurn,
+            effectsAppliedThisTurn,
             hasMoved,
             hasAttacked
         );
@@ -46,10 +48,23 @@ public class Main {
             Board board,
             HistoryCaretaker historyCareTaker,
             boolean whitePlayerTurn,
+            boolean effectsAppliedThisTurn,
             boolean hasMoved,
             boolean hasAttacked
     ) {
         boolean stopGame = false;
+
+        if (!effectsAppliedThisTurn) {
+            Square[][] squares = board.getSquares();
+            for (int i = 0; i < squares.length; i++) {
+                for (int j = 0; j < squares[i].length; j++) {
+                    if (squares[i][j].getPiece() != null) {
+                        squares[i][j].getPiece().getState().applyEffect();
+                    }
+                }
+            }
+            effectsAppliedThisTurn = true;
+        }
 
         String incomingCommand = reader.readLine();
         String[] parts = incomingCommand.split(" ");
@@ -281,6 +296,7 @@ public class Main {
                         whitePlayerTurn = false;
                         writer.writeLine("The black player can now move and attack");
                     }
+                    effectsAppliedThisTurn = false;
                     hasMoved = false;
                     hasAttacked = false;
                 }
@@ -295,6 +311,7 @@ public class Main {
             if(parts.length == 1) {
 
                 historyCareTaker.restoreLastMemento();
+                effectsAppliedThisTurn = false;
                 hasMoved = false;
                 hasAttacked = false;
 
@@ -310,11 +327,13 @@ public class Main {
             if (hasMoved) {
                 if (whitePlayerTurn) {
                     whitePlayerTurn = false;
+                    effectsAppliedThisTurn = false;
                     hasMoved = false;
                     hasAttacked = false;
                     writer.writeLine("The black player can now take a turn.");
                 } else {
                     whitePlayerTurn = true;
+                    effectsAppliedThisTurn = false;
                     hasMoved = false;
                     hasAttacked = false;
                     writer.writeLine("The white player can now take a turn.");
@@ -336,6 +355,7 @@ public class Main {
                     board,
                     historyCareTaker,
                     whitePlayerTurn,
+                    effectsAppliedThisTurn,
                     hasMoved,
                     hasAttacked
             );

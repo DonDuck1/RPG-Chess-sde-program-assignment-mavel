@@ -98,7 +98,7 @@ The RPG mechanics out themselves in 3 stats: health, armor and damage. The stats
 
 Before we go to the actual use of the program via console commands, we'll have to explain how the coordinates work in our chess app. Coordinate 0,0 references the bottom left square on the board. Coordinate 7,7 references the upper right square on the board. The coordinates should be: "x,y".
 
-The possible commands to put in the console are:
+The possible commands to put in the console are (capital letters required):
 
     Move {coordinates of square containing the piece to be moved} {coordinates of square to 
     move piece to}
@@ -115,11 +115,15 @@ The possible commands to put in the console are:
 
     End
 
+    Stop
+
 Example of using coordinates: Move 0,1 0,2. This will move the piece on the square with coordinates x=0 and y=1 to the square with coordinates x=0 and y=2.
 
 The command "Restore", restores the game to the beginning of a turn that is signified with the given turn number. When starting the game, the game starts with turn 0. When the white player has ended his turn, before the black player makes any actions the new state of the board will be saved as turn 1. You can use "Undo turn" to go back to the start of the current turn. If you're in turn 1 for example and black made his moves but regrets them, you can use this command to go back to the beginning of turn 1 where black hasn't made any moves yet.
 
-The command "end", ends the turn of the current player.
+The command "End", ends the turn of the current player.
+
+The command "Stop", ends the game and stops all processes in the terminal ("Process finished with exit code 0").
 
 # Cooperation
 

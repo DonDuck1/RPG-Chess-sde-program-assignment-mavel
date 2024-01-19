@@ -530,6 +530,30 @@ public interface Allegiance {
     };
 
     public default void moveQueen(Square currentSquare, Square squareToMoveTo, Square[][] squares) {
+        boolean movementPathIsDiagonal = false;
+
+        if (squareToMoveTo.getX() < currentSquare.getX()) { // 3 vs 2
+            if(squareToMoveTo.getY() < currentSquare.getY()) { // 1 vs 0
+                if (squareToMoveTo.getX() - currentSquare.getX() == squareToMoveTo.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            } else if (squareToMoveTo.getY() > currentSquare.getY()) { // 0 vs 1
+                if (squareToMoveTo.getX() - currentSquare.getX() == currentSquare.getY() - squareToMoveTo.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            }
+        } else if (squareToMoveTo.getX() > currentSquare.getX()) { // 1 vs 2
+            if(squareToMoveTo.getY() < currentSquare.getY()) { // 1 vs 0
+                if (currentSquare.getX() - squareToMoveTo.getX() == squareToMoveTo.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            } else if (squareToMoveTo.getY() > currentSquare.getY()) { // 0 vs 1
+                if (squareToMoveTo.getX() - currentSquare.getX() == squareToMoveTo.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            }
+        }
+
         if (
             (
                 (squareToMoveTo.getX() - currentSquare.getX() == 0 &&
@@ -539,7 +563,7 @@ public interface Allegiance {
                 (
                     squareToMoveTo.getX() - currentSquare.getX() != 0 &&
                     squareToMoveTo.getY() - currentSquare.getY() != 0 &&
-                    squareToMoveTo.getX() - currentSquare.getX() == squareToMoveTo.getY() - currentSquare.getY()
+                    movementPathIsDiagonal
                 )
             ) &&
             squareToMoveTo.getPiece() == null
@@ -641,6 +665,30 @@ public interface Allegiance {
     };
 
     public default void attackWithQueen(Square currentSquare, Square squareToAttack, Square[][] squares) {
+        boolean movementPathIsDiagonal = false;
+
+        if (squareToAttack.getX() < currentSquare.getX()) { // 3 vs 2
+            if(squareToAttack.getY() < currentSquare.getY()) { // 1 vs 0
+                if (squareToAttack.getX() - currentSquare.getX() == squareToAttack.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            } else if (squareToAttack.getY() > currentSquare.getY()) { // 0 vs 1
+                if (squareToAttack.getX() - currentSquare.getX() == currentSquare.getY() - squareToAttack.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            }
+        } else if (squareToAttack.getX() > currentSquare.getX()) { // 1 vs 2
+            if(squareToAttack.getY() < currentSquare.getY()) { // 1 vs 0
+                if (currentSquare.getX() - squareToAttack.getX() == squareToAttack.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            } else if (squareToAttack.getY() > currentSquare.getY()) { // 0 vs 1
+                if (squareToAttack.getX() - currentSquare.getX() == squareToAttack.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            }
+        }
+
         if (
             (
                 (squareToAttack.getX() - currentSquare.getX() == 0 &&
@@ -650,7 +698,7 @@ public interface Allegiance {
                 (
                     squareToAttack.getX() - currentSquare.getX() != 0 &&
                     squareToAttack.getY() - currentSquare.getY() != 0 &&
-                    squareToAttack.getX() - currentSquare.getX() == squareToAttack.getY() - currentSquare.getY()
+                    movementPathIsDiagonal
                 )
             ) &&
             squareToAttack.getPiece() != null &&
@@ -752,6 +800,30 @@ public interface Allegiance {
     };
 
     public default void specialActionWithQueen(Square currentSquare, Square squareToAffect, Square[][] squares) {
+        boolean movementPathIsDiagonal = false;
+
+        if (squareToAffect.getX() < currentSquare.getX()) { // 3 vs 2
+            if(squareToAffect.getY() < currentSquare.getY()) { // 1 vs 0
+                if (squareToAffect.getX() - currentSquare.getX() == squareToAffect.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            } else if (squareToAffect.getY() > currentSquare.getY()) { // 0 vs 1
+                if (squareToAffect.getX() - currentSquare.getX() == currentSquare.getY() - squareToAffect.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            }
+        } else if (squareToAffect.getX() > currentSquare.getX()) { // 1 vs 2
+            if(squareToAffect.getY() < currentSquare.getY()) { // 1 vs 0
+                if (currentSquare.getX() - squareToAffect.getX() == squareToAffect.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            } else if (squareToAffect.getY() > currentSquare.getY()) { // 0 vs 1
+                if (squareToAffect.getX() - currentSquare.getX() == squareToAffect.getY() - currentSquare.getY()) {
+                    movementPathIsDiagonal = true;
+                }
+            }
+        }
+
         if (
             (
                 (squareToAffect.getX() - currentSquare.getX() == 0 &&
@@ -761,7 +833,7 @@ public interface Allegiance {
                 (
                     squareToAffect.getX() - currentSquare.getX() != 0 &&
                     squareToAffect.getY() - currentSquare.getY() != 0 &&
-                    squareToAffect.getX() - currentSquare.getX() == squareToAffect.getY() - currentSquare.getY()
+                    movementPathIsDiagonal
                 )
             ) &&
             squareToAffect.getPiece() != null &&

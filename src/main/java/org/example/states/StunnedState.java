@@ -42,7 +42,7 @@ public class StunnedState implements PieceState, Serializable {
 
         this.updateDuration();
 
-        if (this.durationLeft <= 0) {
+        if (this.durationLeft < 0) {
             this.changeState(new HealthyState(context));
         }
     }
