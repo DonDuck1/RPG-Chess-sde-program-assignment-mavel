@@ -133,6 +133,10 @@ We wrote out a short list of features for the program and set up the rules for t
 
 Unfortunately, at the end of finishing our project we had to change from an "IntelliJ" project to a "maven" project in order to import a needed dependency. This would cause a lot of merge conflicts if pushed to the same repo. We had to create a new repo for the "maven" project, which does mean that the submissions for only that "maven" project repo aren't an accurate representative of the work we've done.
 
+The first GitHub repo (of the "IntelliJ" project) link: https://github.com/TheMineMan100/sde-program-assignment
+
+The second GitHub repo (of the "maven" project) link: https://github.com/DonDuck1/RPG-Chess-sde-program-assignment-mavel
+
 All in all though, this cooperation went quite well, and we managed to divide the workload fairly evenly.
 
 # Design Patterns
