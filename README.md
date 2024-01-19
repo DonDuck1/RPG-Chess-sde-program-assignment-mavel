@@ -4,11 +4,18 @@ To finish the course "Software Design" we were tasked with making a program usin
 
 The program should run in a java console. We decided on making a chess program, but with our own twist. It's the normal chess board and pieces you know and love, but with RPG mechanics integrated into it. The program's rules should be as follows:
 
+    There are 2 players: a white and a black player. There is no AI, so you can only play 
+    against yourself, locally against someone sitting next to you or online by streaming
+    the program via for example discord.
+
     Per turn the player can move once and attack once, or move once and do a special action once
         - This does not have to be done with the same piece
         - The player must always move a piece, attacking or doing a special action is voluntary
 
     Pieces can move like normal chess pieces
+        - Except for that the pawn can always only move 1 spot. It can't move 2 spots from its
+        starting position.
+        - Castling (with a rook and a king) is not possible
 
     If a piece lands on an enemy piece they perform an attack using their damage against the 
     opponent's health and armour
@@ -17,7 +24,10 @@ The program should run in a java console. We decided on making a chess program, 
         - If the damage the piece does isn't enough to kill the enemy piece, neither piece moves
 
     Pieces can perform piece-specific special actions on any piece they could land on. This means 
-    they don't actually move
+    they don't actually move. We wanted all the pieces to have a special action, which can be seen 
+    below. Due to time constraints, only the bishop, knight and queen have special actions. Those
+    special actions had to be simplified (see even further blow).
+        What we thought of:
         Pawn:
             - As usual special ability only hits diagonally
             - Allows the pawn to sacrifice itself to deal double damage to a piece
@@ -42,6 +52,20 @@ The program should run in a java console. We decided on making a chess program, 
             - AOE attack that hits in a 2 square radius around the king and deals large damage
             - Gives the king the Stunned state for the next turn
 
+        What we were able to implement:
+        Bishop:
+            - Applies Healing state (regeneration) to a friendly piece in its movement range
+            - Healing state heals X health per turn for 3 turns, then returns to default (healthy) 
+            state
+        Knight:
+            - Applies Poisoned state to an enemy piece in its movement range
+            - Poisoned makes the piece lose 50% of its damage stat for 3 turns
+            - Afterwards returns to default (healthy) state with its damage returned to normal
+        Queen:
+            - Applies Stunned state to an enemy piece in its movement range
+            - Stunned makes the piece unable to move, attack or do a special action for 1 turn.
+            - Afterwards returns to default (healthy) state with its damage returned to normal
+
 Before we go to the actual use of the program via console commands, we'll have to explain how the coordinates work in our chess app. Coordinate 0,0 references the bottom left square on the board. Coordinate 7,7 references the upper right square on the board. The coordinates should be: "x,y".
 
 The possible commands to put in the console are:
@@ -52,12 +76,8 @@ The possible commands to put in the console are:
     Attack {coordinates of square containing the attacking piece} {coordinates of square 
     containing the piece to be attacked}
 
-    For Pawn, Rook, Bishop, Knight:
     Special-action {coordinates of square contain the piece doing the special move} {coordinates 
     of square containing the piece to be affected by the special action}
-
-    For Queen, King:
-    Special-action {coordinates of square contain the piece doing the special move}
 
     Restore {turn number}
 
@@ -65,7 +85,7 @@ The possible commands to put in the console are:
 
     End
 
-Example of using coordinates: Move 0,1 0,3. This will move the piece on the square with coordinates x=0 and y=1 to the square with coordinates x=0 and y=3.
+Example of using coordinates: Move 0,1 0,2. This will move the piece on the square with coordinates x=0 and y=1 to the square with coordinates x=0 and y=2.
 
 The command "Restore", restores the game to the beginning of a turn that is signified with the given turn number. When starting the game, the game starts with turn 0. When the white player has ended his turn, before the black player makes any actions the new state of the board will be saved as turn 1. You can use "Undo turn" to go back to the start of the current turn. If you're in turn 1 for example and black made his moves but regrets them, you can use this command to go back to the beginning of turn 1 where black hasn't made any moves yet.
 
@@ -73,13 +93,13 @@ The command "end", ends the turn of the current player.
 
 # Cooperation
 
-To write this program in an orderly fashion, we consistently worked with separate branches, with each of us working on one branch at a time, that were merged into the "develop" branch once the feature the branch was for had been finished.
-
-This way we would both be able to work at the same time, without problems when committing.
+To write this program in an orderly fashion, we consistently worked with separate branches, with each of us working on one branch at a time, that were merged into the "develop" branch once the feature the branch was for had been finished. This way we would both be able to work at the same time, without problems when committing.
 
 We wrote out a short list of features for the program and set up the rules for the game so that we would know what still had to be done.
 
-All in all, this cooperation went quite well, and we managed to divide the workload fairly evenly.
+Unfortunately, at the end of finishing our project we had to change from an "IntelliJ" project to a "maven" project in order to import a needed dependency. This would cause a lot of merge conflicts if pushed to the same repo. We had to create a new repo for the "maven" project, which does mean that the submissions for only that "maven" project repo aren't an accurate representative of the work we've done.
+
+All in all though, this cooperation went quite well, and we managed to divide the workload fairly evenly.
 
 # Design Patterns
 
