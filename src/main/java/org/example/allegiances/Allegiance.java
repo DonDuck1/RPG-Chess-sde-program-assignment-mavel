@@ -178,9 +178,11 @@ public interface Allegiance {
 
             boolean noPiecesInBetween = true;
             for (int i = 0; i < squaresInBetween.length; i++) {
-                if (squaresInBetween[i].getPiece() != null) {
-                    noPiecesInBetween = false;
-                    break;
+                if (squaresInBetween[i] != null) {
+                    if (squaresInBetween[i].getPiece() != null) {
+                        noPiecesInBetween = false;
+                        break;
+                    }
                 }
             }
             if (noPiecesInBetween) {
@@ -276,9 +278,11 @@ public interface Allegiance {
 
             boolean noPiecesInBetween = true;
             for (int i = 0; i < squaresInBetween.length; i++) {
-                if (squaresInBetween[i].getPiece() != null) {
-                    noPiecesInBetween = false;
-                    break;
+                if (squaresInBetween[i] != null) {
+                    if (squaresInBetween[i].getPiece() != null) {
+                        noPiecesInBetween = false;
+                        break;
+                    }
                 }
             }
             if (noPiecesInBetween) {
@@ -373,9 +377,11 @@ public interface Allegiance {
 
             boolean noPiecesInBetween = true;
             for (int i = 0; i < squaresInBetween.length; i++) {
-                if (squaresInBetween[i].getPiece() != null) {
-                    noPiecesInBetween = false;
-                    break;
+                if (squaresInBetween[i] != null) {
+                    if (squaresInBetween[i].getPiece() != null) {
+                        noPiecesInBetween = false;
+                        break;
+                    }
                 }
             }
             if (noPiecesInBetween) {
@@ -438,11 +444,12 @@ public interface Allegiance {
 
             boolean noPiecesInBetween = true;
             if (squaresInBetween.length > 0) {
-                System.out.println(Arrays.toString(squaresInBetween));
                 for (int i = 0; i < squaresInBetween.length; i++) {
-                    if (squaresInBetween[i].getPiece() != null) {
-                        noPiecesInBetween = false;
-                        break;
+                    if (squaresInBetween[i] != null) {
+                        if (squaresInBetween[i].getPiece() != null) {
+                            noPiecesInBetween = false;
+                            break;
+                        }
                     }
                 }
             }
@@ -509,9 +516,11 @@ public interface Allegiance {
 
             boolean noPiecesInBetween = true;
             for (int i = 0; i < squaresInBetween.length; i++) {
-                if (squaresInBetween[i].getPiece() != null) {
-                    noPiecesInBetween = false;
-                    break;
+                if (squaresInBetween[i] != null) {
+                    if (squaresInBetween[i].getPiece() != null) {
+                        noPiecesInBetween = false;
+                        break;
+                    }
                 }
             }
             if (noPiecesInBetween) {
@@ -617,9 +626,11 @@ public interface Allegiance {
 
             boolean noPiecesInBetween = true;
             for (int i = 0; i < squaresInBetween.length; i++) {
-                if (squaresInBetween[i].getPiece() != null) {
-                    noPiecesInBetween = false;
-                    break;
+                if (squaresInBetween[i] != null) {
+                    if (squaresInBetween[i].getPiece() != null) {
+                        noPiecesInBetween = false;
+                        break;
+                    }
                 }
             }
             if (noPiecesInBetween) {
@@ -727,9 +738,11 @@ public interface Allegiance {
 
             boolean noPiecesInBetween = true;
             for (int i = 0; i < squaresInBetween.length; i++) {
-                if (squaresInBetween[i].getPiece() != null) {
-                    noPiecesInBetween = false;
-                    break;
+                if (squaresInBetween[i] != null) {
+                    if (squaresInBetween[i].getPiece() != null) {
+                        noPiecesInBetween = false;
+                        break;
+                    }
                 }
             }
             if (noPiecesInBetween) {
@@ -836,9 +849,11 @@ public interface Allegiance {
 
             boolean noPiecesInBetween = true;
             for (int i = 0; i < squaresInBetween.length; i++) {
-                if (squaresInBetween[i].getPiece() != null) {
-                    noPiecesInBetween = false;
-                    break;
+                if (squaresInBetween[i] != null) {
+                    if (squaresInBetween[i].getPiece() != null) {
+                        noPiecesInBetween = false;
+                        break;
+                    }
                 }
             }
             if (noPiecesInBetween) {
