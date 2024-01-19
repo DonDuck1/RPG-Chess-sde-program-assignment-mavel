@@ -150,7 +150,7 @@ public class Main {
                                     piece.attack(currentSquare, squareToAttack, board.getSquares());
 
                                     if (pieceToAttack.getHealth() < startingHealthOfAttackedPawn) {
-                                        if (pieceToAttack.getHealth() < 0) {
+                                        if (pieceToAttack.getHealth() <= 0) {
                                             squareToAttack.setPiece(currentSquare.getPiece());
                                             currentSquare.setPiece(null);
 
