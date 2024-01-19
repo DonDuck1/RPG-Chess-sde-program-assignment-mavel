@@ -16,6 +16,7 @@ The program should run in a java console. We decided on making a chess program, 
         - Except for that the pawn can always only move 1 spot. It can't move 2 spots from its
         starting position.
         - Castling (with a rook and a king) is not possible
+        - When reaching the other side of the board with a pawn, nothing happens.
 
     If a piece lands on an enemy piece they perform an attack using their damage against the 
     opponent's health and armour
@@ -55,7 +56,7 @@ The program should run in a java console. We decided on making a chess program, 
         What we were able to implement:
         Bishop:
             - Applies Healing state (regeneration) to a friendly piece in its movement range
-            - Healing state heals X health per turn for 3 turns, then returns to default (healthy) 
+            - Healing state heals 1 health per turn for 3 turns, then returns to default (healthy) 
             state
         Knight:
             - Applies Poisoned state to an enemy piece in its movement range
@@ -65,6 +66,35 @@ The program should run in a java console. We decided on making a chess program, 
             - Applies Stunned state to an enemy piece in its movement range
             - Stunned makes the piece unable to move, attack or do a special action for 1 turn.
             - Afterwards returns to default (healthy) state with its damage returned to normal
+    
+    The game is won when the king piece of your opponent dies.
+
+The RPG mechanics out themselves in 3 stats: health, armor and damage. The stats for all the pieces are as follows:
+
+    Pawn:
+        - Health: 1
+        - Armor: 0
+        - Damage: 1
+    Rook:
+        - Health: 3
+        - Armor: 3
+        - Damage: 2
+    Bishop:
+        - Health: 3
+        - Armor: 0
+        - Damage: 2
+    Knight:
+        - Health: 3
+        - Armor: 1
+        - Damage: 3
+    Queen:
+        - Health: 4
+        - Armor: 3
+        - Damage: 6
+    King:
+        - Health: 5
+        - Armor: 2
+        - Damage: 4
 
 Before we go to the actual use of the program via console commands, we'll have to explain how the coordinates work in our chess app. Coordinate 0,0 references the bottom left square on the board. Coordinate 7,7 references the upper right square on the board. The coordinates should be: "x,y".
 
